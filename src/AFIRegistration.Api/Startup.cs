@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AFIRegistration.Api.Contexts;
 using AFIRegistration.Api.Entities;
 using AFIRegistration.Api.Services;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -29,11 +30,13 @@ namespace AFIRegistration.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddDbContext<CustomerContext>(o =>
             {
                 o.UseSqlServer(Configuration["ConnectionString"]);
             });
             services.AddScoped<ICustomerRepository<Customer>, CustomerRepository>();
+            services.AddSwaggerGen();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,7 +46,12 @@ namespace AFIRegistration.Api
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Animal Friends Insurance Registration V1.0");
+                    c.RoutePrefix = string.Empty;
+                });
             app.UseRouting();
 
             app.UseAuthorization();
