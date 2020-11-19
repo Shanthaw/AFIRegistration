@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AFIRegistration.Api.Contexts;
+using AFIRegistration.Api.Entities;
+using AFIRegistration.Api.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -31,6 +33,7 @@ namespace AFIRegistration.Api
             {
                 o.UseSqlServer(Configuration["ConnectionString"]);
             });
+            services.AddScoped<ICustomerRepository<Customer>, CustomerRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
