@@ -1,0 +1,10 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/src/AFIRegistration.Api/bin/Debug/netcoreapp3.1
+/src/AFIRegistration.Api/obj
+/src/AFIRegistration.Api.UnitTest/bin/Debug/netcoreapp3.1
+/src/AFIRegistration.Api.UnitTest/obj
+/src/.vs/AFIRegistration/v16
+/src/AFIRegistration.Api/.vs/AFIRegistration.Api/v16
