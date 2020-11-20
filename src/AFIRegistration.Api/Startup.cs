@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AFIRegistration.Api.Contexts;
 using AFIRegistration.Api.Entities;
 using AFIRegistration.Api.Services;
+using AFIRegistration.Api.Utils;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -52,6 +53,7 @@ namespace AFIRegistration.Api
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "Animal Friends Insurance Registration V1.0");
                     c.RoutePrefix = string.Empty;
                 });
+            app.UseMiddleware<ExceptionHandler>();
             app.UseRouting();
 
             app.UseAuthorization();
