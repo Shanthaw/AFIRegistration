@@ -29,10 +29,8 @@ namespace AFIRegistration.Api.Controllers
         public async Task<IActionResult> RegisterCustomer(CustomerRegistrationDto registrationDto)
         {
             var customerEntity = _mapper.Map<Customer>(registrationDto);
-            await _customerRepository.AddItemAsync(customerEntity)
-                .ConfigureAwait(false);
-            await _customerRepository.SaveAsync()
-                .ConfigureAwait(false);
+            await _customerRepository.AddItemAsync(customerEntity);
+            await _customerRepository.SaveAsync();
             var customerToReturn = _mapper.Map<CustomerDto>(customerEntity);
             _logger.LogInformation($"a customer id {customerToReturn.Id} is registered");
             return CreatedAtRoute("GetCustomer", new { id = customerToReturn.Id }, customerToReturn);
@@ -40,8 +38,7 @@ namespace AFIRegistration.Api.Controllers
         [HttpGet("{id}", Name = "GetCustomer")]
         public async Task<IActionResult> GetRegisteredCustomer(int id)
         {
-            var customer = await _customerRepository.GetByIdAsync(id)
-                .ConfigureAwait(false);
+            var customer = await _customerRepository.GetByIdAsync(id);
             if (customer == null)
                 return NotFound();
             return Ok(_mapper.Map<CustomerDto>(customer));
