@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AFIRegistration.Api.Entities;
 using AFIRegistration.Api.Models;
 using AFIRegistration.Api.Services;
+using AFIRegistration.Api.Utils;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -11,7 +12,7 @@ namespace AFIRegistration.Api.Controllers
 {
     [Route("api/customer")]
     [ApiController]
-    public class CustomersController : ControllerBase
+    public class CustomersController : BaseController
     {
         private readonly ICustomerRepository<Customer> _customerRepository;
         private readonly IMapper _mapper;
