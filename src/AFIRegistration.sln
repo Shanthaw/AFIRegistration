@@ -7,7 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AFIRegistration.Api", "AFIR
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{7470FC2F-0079-4A5C-BF23-DD1EDBDD171F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AFIRegistration.Api.UnitTest", "AFIRegistration.Api.UnitTest\AFIRegistration.Api.UnitTest.csproj", "{9626BE2B-F79E-4315-9C7C-19996665865E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AFIRegistration.Api.UnitTest", "AFIRegistration.Api.UnitTest\AFIRegistration.Api.UnitTest.csproj", "{9626BE2B-F79E-4315-9C7C-19996665865E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{37D6B53D-2A12-4ECD-83A7-BE01EAE5CBB8}"
+	ProjectSection(SolutionItems) = preProject
+		ReadMe.md = ReadMe.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
