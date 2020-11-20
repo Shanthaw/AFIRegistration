@@ -27,7 +27,7 @@ namespace AFIRegistration.Api.Entities
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            string policyReferenceNumberPattern = @"[A_Z]{2}-[0-9]{6}";
+            string policyReferenceNumberPattern = @"[A-Z]{2}-[0-9]{6}";
             string emailPattern = @"[a-zA-Z0-9]{4,50}@[a-zA-Z0-9]{2,50}.(com|co.uk)";
             if (DateOfBirth == DateTime.MinValue && string.IsNullOrEmpty(Email))
             {

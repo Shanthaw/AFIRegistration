@@ -42,7 +42,7 @@ namespace AFIRegistration.Api.UnitTest
         {
             // Arr
             var fixture = new Fixture();
-            var pattern = @"[A_Z]{2}-[0-9]{6}";
+            var pattern = @"[A-Z]{2}-[0-9]{6}";
             var policyReference =
                 new SpecimenContext(fixture).Resolve(
                     new RegularExpressionRequest(pattern));
