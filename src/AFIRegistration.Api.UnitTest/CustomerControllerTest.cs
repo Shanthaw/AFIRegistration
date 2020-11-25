@@ -10,7 +10,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
+using System;
 using System.Threading.Tasks;
+using FluentAssertions;
 
 namespace AFIRegistration.Api.UnitTest
 {
@@ -61,6 +63,33 @@ namespace AFIRegistration.Api.UnitTest
             Assert.AreEqual(StatusCodes.Status201Created, (result as CreatedAtRouteResult).StatusCode);
             Assert.AreEqual(customer.Id, ((Envelope<CustomerDto>)(result as CreatedAtRouteResult).Value).Result.Id);
         }
+        [Test]
+        public void RegisterCustomer_Faile_With_DomainException()
+        {
+            //Arr
+            var customer = new Customer();
+            var fixture = new Fixture();
+            var customerDto = fixture.Create<CustomerRegistrationDto>();
+            customer.DateOfBirth = customerDto.DateOfBirth;
+            customer.Email = customerDto.Email;
+            customer.FirstName = customerDto.FirstName;
+            customer.LastName = customerDto.LastName;
+            customer.PolicyReferenceNumber = customerDto.PolicyReferenceNumber;
+
+            var customerDToReturn = new CustomerDto();
+
+            _customerRepo.Setup(a => a.AddItemAsync(customer)).Returns(Task.CompletedTask);
+            _customerRepo.Setup(a => a.SaveAsync()).Throws(new EntityException("domain exception"));
+            _mapper.Setup(a => a.Map<Customer>(customerDto)).Returns(customer);
+
+           // _mapper.Setup(a => a.Map<CustomerDto>(customer)).Returns(customerDToReturn);
+            var controller = new CustomersController(_customerRepo.Object, _mapper.Object, _logger.Object);
+
+            //Act
+            Action action = () => { controller.RegisterCustomer(customerDto).GetAwaiter().GetResult(); };
+            action.Should().Throw<EntityException>();
+
+        }
 
         [Test]
         public async Task GetRegistredCustomerById_Success()
@@ -94,11 +123,12 @@ namespace AFIRegistration.Api.UnitTest
             var controller = new CustomersController(_customerRepo.Object, _mapper.Object, _logger.Object);
 
             //Act
-            var result = await controller.GetRegisteredCustomer(customerId);
+             var result = await controller.GetRegisteredCustomer(customerId);
 
             //Ass
             _customerRepo.Verify(a => a.GetByIdAsync(customerId), Times.Exactly(1));
             Assert.AreEqual(StatusCodes.Status404NotFound, (result as NotFoundResult).StatusCode);
         }
+        
     }
 }
